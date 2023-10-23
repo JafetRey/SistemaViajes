@@ -1,0 +1,52 @@
+﻿@model SistemaViajes.Models.ColaboradorSucursal
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Registrar Distancia</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+</head>
+<body>
+    <div class="container mt-5 pt-5">
+        <div class="row justify-content-center">
+            <div class="col-12 col-xl-4 col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        Registrar Distancia entre colaborador y sucursal
+                    </div>
+                    <div class="card-body">
+                        @using (Html.BeginForm("CrearColaboradorSucursal", "Home", FormMethod.Post))
+                        {
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div class="form-group">
+                                <label for="ColaboradorId">Colaborador</label>
+                                @Html.DropDownListFor(model => model.ColaboradorId, new SelectList(ViewBag.Colaboradores, "Value", "Text"), "Seleccione un colaborador", new { @class = "form-control" })
+                            </div>
+                            <div class="form-group">
+                                <label for="SucursalId">Sucursal</label>
+                                @Html.DropDownListFor(model => model.SucursalId, new SelectList(ViewBag.Sucursales, "Value", "Text"), "Seleccione una sucursal", new { @class = "form-control" })
+                            </div>
+                            <div class="form-group">
+                                <label for="DistanciaKilometros">Distancia en kilómetros</label>
+                                @Html.EditorFor(model => model.DistanciaKilometros, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.DistanciaKilometros, "", new { @class = "text-danger" })
+                            </div>
+                            <button type="submit" class="btn btn-primary">Crear</button>
+                        }
+                        <a href="@Url.Action("Index", "Home")">Volver</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
