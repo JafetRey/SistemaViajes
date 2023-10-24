@@ -1,4 +1,5 @@
-﻿@model SistemaViajes.Models.ColaboradorSucursal
+﻿@model SistemaViajes.Models.Viaje
+
 @{
     Layout = null;
 }
@@ -8,7 +9,7 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Crear Colaborador-Sucursal</title>
+    <title>Registro de Viaje</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 </head>
 <body>
@@ -17,28 +18,34 @@
             <div class="col-12 col-xl-4 col-md-6">
                 <div class="card">
                     <div class="card-header">
-                        Crear Colaborador-Sucursal
+                        Registro de Viaje
                     </div>
                     <div class="card-body">
-                        <form asp-controller="Home" asp-action="CrearColaboradorSucursal" method="post">
+                        <form asp-controller="Home" asp-action="RegistroViaje" method="post">
+                            <div class="form-group">
+                                <label asp-for="Fecha" class="form-label">Fecha</label>
+                                <input asp-for="Fecha" class="form-control" type="date" required>
+                            </div>
                             <div class="form-group">
                                 <label asp-for="ColaboradorId" class="form-label">Colaborador</label>
-                                <select asp-for="ColaboradorId" asp-items="ViewBag.Colaboradores" class="form-select" required>
-                                    <option value="">Seleccione un colaborador</option>
-                                </select>
+                                @Html.DropDownList("ColaboradorId", ViewBag.Colaboradores as SelectList, "Seleccione un colaborador", new { @class = "form-select", required = "required" })
                             </div>
                             <div class="form-group">
                                 <label asp-for="SucursalId" class="form-label">Sucursal</label>
-                                <select asp-for="SucursalId" asp-items="ViewBag.Sucursales" class="form-select" required>
-                                    <option value="">Seleccione una sucursal</option>
-                                </select>
+                                @Html.DropDownList("SucursalId", ViewBag.Sucursales as SelectList, "Seleccione una sucursal", new { @class = "form-select", required = "required" })
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="TransportistaId" class="form-label">Transportista</label>
+                                @Html.DropDownList("TransportistaId", ViewBag.Transportistas as SelectList, "Seleccione un transportista", new { @class = "form-select", required = "required" })
                             </div>
                             <div class="form-group">
                                 <label asp-for="DistanciaKilometros" class="form-label">Distancia en Kilómetros</label>
                                 <input asp-for="DistanciaKilometros" class="form-control" type="number" min="0" max="50" required>
                             </div>
+                            <input type="hidden" id="UsuarioRegistrador" name="UsuarioRegistrador" value="@ViewBag.UsuarioRegistrador" />
+
                             <div class="d-grid gap-2 mb-3">
-                                <button class="btn btn-primary" type="submit">Crear</button>
+                                <button class="btn btn-primary" type="submit">Registrar Viaje</button>
                             </div>
                             @if (ViewData["Mensaje"] != null)
                             {
